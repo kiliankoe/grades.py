@@ -1,5 +1,7 @@
 ### Noten Fetcher für die HTW Dresden
 
+Als erstes in der ```noten.sh``` die erste Zeile ändern und euer persönliches cwd eintragen.
+
 Wichtig: Es wird Python 3 benötigt. 
 
 Folgende Befehle nacheinander ausführen:
