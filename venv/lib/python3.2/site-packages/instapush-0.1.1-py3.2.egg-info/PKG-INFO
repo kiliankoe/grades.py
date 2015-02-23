@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: instapush
+Version: 0.1.1
+Summary: a python wrapper for instapush
+Home-page: https://github.com/adamwen829/instapush-py
+Author: Adam Wen
+Author-email: adamwen829@gmail.com
+License: MIT License
+Description: UNKNOWN
+Keywords: instapush,tools
+Platform: any

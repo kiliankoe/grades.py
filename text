@@ -1,0 +1,44 @@
+[
+    {
+        "Status": "BE", 
+        "PrDatum": "02.02.2015", 
+        "Versuch": "1", 
+        "PrNr": "3600", 
+        "PrNote": "170", 
+        "EctsGrade": "", 
+        "Semester": "20142", 
+        "Vermerk": "", 
+        "PrForm": "S", 
+        "EctsCredits": "5.0", 
+        "VoDatum": "", 
+        "PrTxt": "Internet-Technolog. II"
+    }, 
+    {
+        "Status": "BE", 
+        "PrDatum": "09.02.2015", 
+        "Versuch": "1", 
+        "PrNr": "5071", 
+        "PrNote": "130", 
+        "EctsGrade": "", 
+        "Semester": "20142", 
+        "Vermerk": "", 
+        "PrForm": "S", 
+        "EctsCredits": "0.0", 
+        "VoDatum": "", 
+        "PrTxt": "NSS-Gest. u. Usab SP"
+    }, 
+    {
+        "Status": "BE", 
+        "PrDatum": "", 
+        "Versuch": "1", 
+        "PrNr": "5072", 
+        "PrNote": "130", 
+        "EctsGrade": "", 
+        "Semester": "20142", 
+        "Vermerk": "", 
+        "PrForm": "AP", 
+        "EctsCredits": "0.0", 
+        "VoDatum": "", 
+        "PrTxt": "NSS-Gest. u. Usab BGA"
+    }
+]

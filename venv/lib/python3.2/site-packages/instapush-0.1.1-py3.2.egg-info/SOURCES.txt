@@ -1,0 +1,9 @@
+setup.cfg
+setup.py
+instapush/__init__.py
+instapush/instapush.py
+instapush.egg-info/PKG-INFO
+instapush.egg-info/SOURCES.txt
+instapush.egg-info/dependency_links.txt
+instapush.egg-info/requires.txt
+instapush.egg-info/top_level.txt
