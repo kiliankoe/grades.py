@@ -1,64 +1,67 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python
+
+import sys
+import json
 
 import requests
-import json
-import functools
-import sys
 
-api_key = 'OgCs72LZO52Lwk4ypLhgBenfNvEqwwbS'
+from table import *
+from push import *
 
-def contains(list, string):
-    return string in list
+# Auth
 
-file = open('auth','r')
-lines = file.readlines()
-file.close()
-sNummer = lines[0].split('\n')[0]
-RZLogin = lines[1].split('\n')[0]
+def load_auth():
+  with open('auth.json', 'r') as authfile:
+    try:
+      authfile = open('auth.json','r')
+    except FileNotFoundError:
+      print(colored("Es existiert keine Datei namens auth.json im aktuellen Verzeichnis.", 'red'))
+      print(colored("Benenne bitte auth_example.json um und fülle die passenden Felder aus.", 'red'))
+      sys.exit(1)
 
-try:
-  g = requests.post("https://wwwqis.htw-dresden.de/appservice/getcourses", data = {
-       "sNummer":sNummer,
-       "RZLogin":RZLogin
-    }, verify = False)
+    auth = json.loads(authfile.read())
 
-  garray = json.loads(g.content.decode())
+    if 'login' not in auth or 'password' not in auth:
+      print(colored("Bitte stelle sicher, dass sowohl das Feld 'login' als auch das Feld 'passwort' in auth.json vorhanden sind.", 'red'))
+      sys.exit(1)
 
-  r = requests.post("https://wwwqis.htw-dresden.de/appservice/getgrades", data = {
-                        "sNummer":sNummer,
-                        "RZLogin":RZLogin,
-                        "AbschlNr":garray[0]["AbschlNr"],
-                        "StgNr":garray[0]["StgNr"],
-                        "POVersion":garray[0]["POVersion"]
-                }, verify=False)
+    if not auth['login'] or not auth['password']:
+      print(colored("Bitte hinterlege in der auth.json einen Login (sNummer) und ein Passwort.", 'red'))
+      sys.exit(1)
 
-  if r.status_code == 200:
-   array = json.loads(r.content.decode())
-   ws14 = []
-   for dic in array:
-    if dic['Semester'] == '20142' and dic['PrNote'] != '':
-     ws14.append(dic)
+    return auth
 
-   infile = open("text","r")
-   alt = json.load(infile)
-   if len(alt) == len(ws14):
-    print("keine neuen Noten")
-    sys.exit(0)
+# API
 
-   with open("text","w") as outfile:
-     json.dump(ws14,outfile,indent=4)
+def get_grades(login, password):
+  courses_request = requests.post('https://wwwqis.htw-dresden.de/appservice/getcourses', data = {
+                                    'sNummer': login,
+                                    'RZLogin': password
+                                  })
+  courses = json.loads(courses_request.content.decode())
 
-   neueNoten = []
-   for dic in ws14:
-    if not contains(alt,dic):
-     neueNoten.append(dic)
+  grades_request = requests.post('https://wwwqis.htw-dresden.de/appservice/getgrades', data = {
+                                  'sNummer': login,
+                                  'RZLogin': password,
+                                  'AbschlNr': courses[0]['AbschlNr'],
+                                  'StgNr': courses[0]['StgNr'],
+                                  'POVersion': courses[0]['POVersion']
+                                 })
+  return json.loads(grades_request.content.decode())
 
-   message = functools.reduce(lambda y,x: "%s%s in %s\n" %(y,x['PrNote'],x['PrTxt']),neueNoten,"")
 
-   headers = {'Content-Type': 'application/json', 'Authorization': "Bearer %s" %(api_key)}
-   payload = {'type': 'note', 'title': message, 'body': 'Geil Mann!'}
-   ret = requests.post('https://api.pushbullet.com/v2/pushes', headers = headers, data = json.dumps(payload))
-   print("%s wurde an Geräte geschickt" %(message))
 
-except requests.exceptions.RequestException as e:
-            print(e)
+
+def main():
+  auth = load_auth()
+  grades = get_grades(auth['login'], auth['password'])
+
+  args = sys.argv[1:]
+  if '-p' in args or '--push' in args:
+    send_grade_notifications(auth, grades)
+
+  table = generate_table(grades)
+  print_table(table)
+
+if __name__ == '__main__':
+  main()

@@ -1,3 +1,4 @@
 auth
 venv
 auth.json
+.known_grades
