@@ -1,0 +1,11 @@
+{
+  "login": "",
+  "password": "",
+  "pushbullet": {
+    "api_key": ""
+  },
+  "pushover": {
+    "api_token": "",
+    "user_key": ""
+  }
+}
