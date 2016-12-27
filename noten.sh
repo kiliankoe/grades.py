@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/pi/Dev/Noten-App/
+cd pfad/zum/verzeichnis
 source venv/bin/activate
-python noten.py
+python noten.py -p
 deactivate
