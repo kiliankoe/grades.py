@@ -1,19 +1,17 @@
 ### Noten Fetcher für die HTW Dresden
 
-Als erstes in der ```noten.sh``` die erste Zeile ändern und euer persönliches cwd eintragen.
+`auth_example.json` duplizieren und in `auth.json` umbenennen. Dort Login (sNummer) und Passwort eintragen. Falls
+Push-Notifications verschickt werden sollen müssen die Daten für entweder Pushover oder Pushbullet auch eingetragen
+werden.
 
-Wichtig: Es wird Python 3 benötigt. 
+Es empfiehlt sich ein virtualenv (`$ python3 -m venv venv`) anzulegen und in diesem (`$ source venv/bin/activate`) die
+nötigen dependencies zu installieren (`$ pip install -r requirements.txt`).
 
-Folgende Befehle nacheinander ausführen:
+![screenshot](https://cloud.githubusercontent.com/assets/2625584/21504443/57b799c0-cc5f-11e6-9f34-454a1bf2b55d.png)
+
+Startet man das Skript mit `-p` oder `--push` wird die Tabelle aller Noten ebenfalls ausgegeben, aber für das Tool noch
+unbekannte (sprich neue) Noten werden an den Pushprovider weitergereicht. Ist demnach ideal für einen Cronjob.
 
 ```
-python3 -m venv venv
-source venv/bin/activate
-pip install requests
-deactivate
+*/15 * * * * /pfad/zum/verzeichnis/noten.sh > /dev/null 2>&1
 ```
-
-Danach in der Daten ```auth``` s-Nummer und RZLogin eingeben und speichern. (Datei muss angelegt werden!) 
-Dann kann mittels ```./noten.sh``` nachgeschaut werden, ob es neue Noten gibt. (Am besten einen Cronjob anlegen)
-
-Damit die Push Notifications an das iPhone geschickt werden können, braucht ihr noch einen Account bei https://www.pushbullet.com . Dort dann auf eher Bild rechts oben klicken und unter Account Settings den Access Token kopieren und in der noten.py am Anfang austauschen.
