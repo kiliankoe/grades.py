@@ -56,16 +56,12 @@ def main():
   auth = load_auth()
   grades = get_grades(auth['login'], auth['password'])
 
-  notification_mode = False
-
   args = sys.argv[1:]
-  notification_mode = True
   if '-p' in args or '--push' in args:
     send_grade_notifications(auth, grades)
 
-  if not notification_mode:
-    table = generate_table(grades)
-    print_table(table)
+  table = generate_table(grades)
+  print_table(table)
 
 if __name__ == '__main__':
   main()
