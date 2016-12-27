@@ -9,7 +9,7 @@ nötigen dependencies zu installieren (`$ pip install -r requirements.txt`).
 
 ![screenshot](https://cloud.githubusercontent.com/assets/2625584/21504443/57b799c0-cc5f-11e6-9f34-454a1bf2b55d.png)
 
-Startet man das Skript mit `-p` oder `--push` wird die Tabelle aller Noten ebenfalls ausgegeben, aber für das Tool noch
+Startet man das Skript mit `-p` oder `--push` wird die Tabelle aller Noten nicht ausgegeben, aber für das Tool noch
 unbekannte (sprich neue) Noten werden an den Pushprovider weitergereicht. Ist demnach ideal für einen Cronjob.
 
 ```
