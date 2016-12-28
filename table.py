@@ -41,7 +41,7 @@ def grade_to_arr(grade):
   return grade
 
 def generate_table(grades):
-  table = [['Semester', 'Datum', 'Prüfung', 'Credits', 'Form', 'Versuch', 'Note', 'Status']]
+  table = [['Semester', 'Datum', 'Pruefung', 'Credits', 'Form', 'Versuch', 'Note', 'Status']]
   for grade in grades:
     table.append(grade_to_arr(grade))
   return table
