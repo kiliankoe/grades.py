@@ -16,7 +16,7 @@ def format_push_message(grades):
   message = "Neue Noten: "
 
   for grade in grades:
-    message += "{} in {}, ".format(format_grade_val(grade['PrNote']), grade['PrTxt'])
+    message += "{} in {}, ".format(format_grade_val(grade['grade']), grade['text'])
   return message
 
 def send_grade_notifications(auth, grades):
