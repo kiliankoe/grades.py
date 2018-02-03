@@ -10,7 +10,7 @@ def filter_new(grades):
     known_grades = known_file.read().splitlines()
     new_grades = []
     for grade in grades:
-      if grade['nr'] not in known_grades:
+      if str(grade['nr']) not in known_grades:
         new_grades.append(grade)
         known_file.write(str(grade['nr']))
         known_file.write('\n')
