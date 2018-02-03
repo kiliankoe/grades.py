@@ -4,6 +4,7 @@ import sys
 import json
 
 import requests
+from requests.auth import HTTPBasicAuth
 
 from table import *
 from push import *
@@ -34,15 +35,10 @@ def load_auth():
 # API
 
 def get_grades(login, password):
-  courses_request = requests.post('https://wwwqis.htw-dresden.de/appservice/getcourses', data = {
-                                    'sNummer': login,
-                                    'RZLogin': password
-                                  })
+  courses_request = requests.get('https://wwwqis.htw-dresden.de/appservice/v2/getcourses', auth=HTTPBasicAuth(login, password))
   courses = json.loads(courses_request.content.decode())
 
-  grades_request = requests.post('https://wwwqis.htw-dresden.de/appservice/getgrades', data = {
-                                  'sNummer': login,
-                                  'RZLogin': password,
+  grades_request = requests.get('https://wwwqis.htw-dresden.de/appservice/v2/getgrades', auth=HTTPBasicAuth(login, password), params = {
                                   'AbschlNr': courses[0]['AbschlNr'],
                                   'StgNr': courses[0]['StgNr'],
                                   'POVersion': courses[0]['POVersion']

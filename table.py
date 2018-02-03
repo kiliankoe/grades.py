@@ -25,17 +25,17 @@ def grade_color(grade):
     return 'red'
 
 def grade_to_arr(grade):
-  grade_val = format_grade_val(grade['PrNote'])
+  grade_val = format_grade_val(grade['grade'])
   color = grade_color(grade_val)
   grade = [
-    format_semester(grade['Semester']),
-    grade['PrDatum'],
-    grade['PrTxt'],
-    grade['EctsCredits'],
-    grade['PrForm'],
-    grade['Versuch'],
+    format_semester(str(grade['semester'])),
+    grade['examDate'],
+    grade['text'],
+    grade['credits'],
+    grade['form'],
+    grade['tries'],
     colored(str(grade_val), color),
-    colored(grade['Status'], color)
+    colored(grade['state'], color)
   ]
 
   return grade
